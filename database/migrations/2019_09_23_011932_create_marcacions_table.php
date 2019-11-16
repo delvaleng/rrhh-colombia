@@ -19,7 +19,7 @@ class CreateMarcacionsTable extends Migration
             $table->integer('id_tp_marcacion')->default(null);
             $table->date('dia');
             $table->time('hora_inicio');
-            $table->time('hora_fin'->nullable());
+            $table->time('hora_fin')->nullable();
             $table->double('total_min')->nullable();
             $table->double('latitud')->nullable();
             $table->double('longitud')->nullable();
