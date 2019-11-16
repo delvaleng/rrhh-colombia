@@ -101,7 +101,9 @@ class MarcacionController extends AppBaseController
           ];
           Marcacion::create($marcar);
           if($id_tp_marcacion > 1){
-            $validDay      = Marcacion::where('dia', date("Y-m-d"))->where('id_tp_marcacion', $id_tp_marcacion-1)->where('id_empleado', $id_empleado)->first();
+            $validDay      = Marcacion::where('dia', date("Y-m-d"))->where('id_tp_marcacion', '!=', $id_tp_marcacion)
+            ->where('id_empleado', $id_empleado)
+            ->orderBy('id_tp_marcacion', 'desc')->first();
 
             $fecha1 = \DateTime::createFromFormat('Y-m-d H:i:s',$validDay->created_at ); //new DateTime("2010-07-28 01:15:52");
             $fecha2 = new DateTime(now());
