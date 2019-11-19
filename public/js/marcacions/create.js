@@ -8,16 +8,27 @@ var regexaño     = /^([0-9]{4})$/;
 
 $(document).ready(function() {
 
-    if ("geolocation" in navigator){ //check geolocation available
-    //try to get user current location using getCurrentPosition() method
-    navigator.geolocation.getCurrentPosition(function(position){
-      console.log("Found your location nLat : "+position.coords.latitude+" nLang :"+ position.coords.longitude);
-    });
-    }else{
-    console.log("Browser doesn't support geolocation!");
-    }
+  if (navigator.geolocation) {
 
-  if (navigator.geolocation) { //check if geolocation is available
+                  var vm = this;
+                  navigator.geolocation.getCurrentPosition(function(position)
+                  {
+                      var geolocation = {
+                          lat: position.coords.latitude,
+                          lng: position.coords.longitude
+                      };
+                      console.log(geolocation);
+
+                      var circle = new google.maps.Circle({
+                          center: geolocation,
+                          radius: position.coords.accuracy
+                      });
+
+                      vm.autocomplete.setBounds(circle.getBounds());
+                  });
+              }
+
+ /*  if (navigator.geolocation) { //check if geolocation is available
       navigator.geolocation.getCurrentPosition(function(position){
         console.log(position.coords.latitude);
         console.log(position.coords.longitude);
@@ -25,7 +36,7 @@ $(document).ready(function() {
         $("#latitud").val(position.coords.latitude);
         $("#longitud").val(position.coords.longitude);
       });
-  }
+  }*/
 
   $('#marcacions-form').submit(function() {
     var flag = true;
