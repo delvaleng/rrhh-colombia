@@ -136,5 +136,5 @@
 <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
 
 
-<script src="{{ asset('js/autorizacion_empleado/report.js')}} "></script>
+<script src="{{ asset('js/marcacions/report.js')}} "></script>
 @endsection
