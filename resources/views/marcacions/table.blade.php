@@ -4,6 +4,7 @@
         <thead>
             <tr>
               <th>N°</th>
+              <th>(+)Permiso</th>
               <th>Empleado</th>
               <th>Tipo de Marcacion</th>
               <th>Dia</th>
@@ -19,6 +20,9 @@
         @foreach($marcacions as $marcacion)
             <tr>
               <td>{!! $marcacion->id !!}</td>
+              <td><a class="btn btn-primary btn-sm modalPermiso" data-id="{!! $marcacion->id !!}"><i class="fa fa-star-o"></i></a>
+              </td>
+
               <!-- <td>{!! $marcacion->empleado->nombre !!} - {!! $marcacion->empleado->apellido !!}</td> -->
               <td>{!! strtoupper($marcacion->empleado->usuario) !!} </td>
 

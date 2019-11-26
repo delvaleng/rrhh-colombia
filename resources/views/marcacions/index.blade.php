@@ -9,6 +9,8 @@
         <h1 class="pull-left">Marcaciones</h1>
     </section>
     <div class="content">
+      <meta name="csrf-token" content="{{ csrf_token() }}">
+
         <div class="clearfix"></div>
 
         @include('flash::message')
@@ -23,6 +25,31 @@
 
         </div>
     </div>
+
+    <!-- Modal -->
+<div class="modal fade" id="permisoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Registrar Autorizaci&oacute;n</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row" style="padding-left: 20px; padding-right:  20px">
+          {!! Form::open(['route' => 'autorizacionEmpleados.store', 'id'=>'formAutorizacionEmpleados']) !!}
+            @include('autorizacion_empleados.fields_modal')
+          {!! Form::close() !!}
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" id='sendAutorizacionEmpleados'>Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
 @endsection
 @section('scripts')
 

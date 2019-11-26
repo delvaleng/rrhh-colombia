@@ -45,3 +45,7 @@
 <li class="{{ Request::is('marcacions*') ? 'active' : '' }}">
     <a href="{!! route('marcacions.report') !!}"><i class="fa fa-file-excel-o"></i><span>Reporte Mensual</span></a>
 </li>
+
+<li class="{{ Request::is('autorizacionEmpleados*') ? 'active' : '' }}">
+    <a href="{!! route('autorizacionEmpleados.index') !!}"><i class="fa fa-edit"></i><span>Autorizacion Empleados</span></a>
+</li>

@@ -12,6 +12,7 @@ use App\Models\PasswordoEmpleado;
 use App\Models\TpMarcacion;
 use App\Models\Marcacion;
 use App\Models\Empleado;
+use App\Models\AutorizacionEmpleado;
 use App\Models\Horario;
 use Flash;
 use Excel;
@@ -37,12 +38,19 @@ class MarcacionController extends AppBaseController
      */
     public function index(Request $request)
     {
+      $tpempleado       =  Empleado::where('status', TRUE)
+      ->select(DB::raw("UPPER(CONCAT(apellido,'  ', nombre)) AS name"), "empleados.id as id")
+      ->orderBy('name',  'ASC')
+      ->pluck( '(apellido||" " ||nombre)as name', 'empleados.id as id');
+
         $marcacions = $this->marcacionRepository
         ->with('empleado', 'tpMarcacion')
         ->all();
 
         return view('marcacions.index')
-            ->with('marcacions', $marcacions);
+            ->with('marcacions', $marcacions)
+            ->with('tpempleado', $tpempleado);
+
     }
 
     public function report()
@@ -98,16 +106,16 @@ class MarcacionController extends AppBaseController
         $hora_inicio   = $key->hora_inicio;
         $hora_salida   = ($salidaQuery)? $salidaQuery->hora_inicio : null;
 
-        $resto_entrada = $this->restoHoras($entrada, $hora_inicio, 'entrada');
+        $resto_entrada = $this->restoHoras($entrada, $hora_inicio, 'entrada', $key->id);
         $total_positivo= ($resto_entrada{'tp'} == 'suma' )? $total_positivo + $resto_entrada{'minutos'} : $total_positivo;
-        $total_negativo= ($resto_entrada{'tp'} == 'resto')? $total_negativo + $resto_entrada{'minutos'} : $total_negativo;
+        $total_negativo= ($resto_entrada{'tp'} == 'resto'&& $resto_entrada{'autorizado'} == null)? $total_negativo + $resto_entrada{'minutos'} : $total_negativo;
 
-        $resto_salida  = ($hora_salida != null ) ? $this->restoHoras($salida,  $hora_salida, 'salida') : null;
+        $resto_salida  = ($hora_salida != null ) ? $this->restoHoras($salida,  $hora_salida, 'salida', $salidaQuery->id) : null;
         $total_positivo= ($resto_salida!= null)?
         ($resto_salida{'tp'} == 'suma' )? $total_positivo + $resto_salida{'minutos'} : $total_positivo
         : null;
         $total_negativo= ($resto_salida!= null)?
-        ($resto_salida{'tp'} == 'resto')? $total_negativo + $resto_salida{'minutos'} : $total_negativo
+        ($resto_salida{'tp'} == 'resto' && $resto_salida{'autorizado'} == null)? $total_negativo + $resto_salida{'minutos'} : $total_negativo
         : null;
 
 
@@ -128,7 +136,10 @@ class MarcacionController extends AppBaseController
           'tp_resto_salida'  => $resto_salida{'tp'},
           'total_positivo'   => $total_positivo,
           'total_negativo'   => $total_negativo,
-
+          'autorizado_salida'   => $resto_salida{'autorizado'},
+          'autorizado_entrada'  => $resto_entrada{'autorizado'},
+          'observacion_salida'  => $resto_salida{'observacion'},
+          'observacion_entrada' => $resto_entrada{'observacion'},
         ];
         array_push($datos, $dato);
 
@@ -149,8 +160,16 @@ class MarcacionController extends AppBaseController
     }
 
 
-    function restoHoras($standar, $marco, $tp)
+    function restoHoras($standar, $marco, $tp, $id)
     {
+      $autorizado = null;
+      $observacion = null;
+
+      $queryAutorizacion = AutorizacionEmpleado::where('id_marcacion', $id)->with('aprobadoBy')->first();
+      if($queryAutorizacion){
+          $autorizado  = ($queryAutorizacion->aprobado_by)? mb_strtoupper($queryAutorizacion->aprobadoBy->usuario) : '-';
+          $observacion = mb_strtoupper($queryAutorizacion->observacion);
+      }
       $inicio;      $final;   $tp_cuenta;
 
       if ($tp == 'entrada'){
@@ -196,6 +215,8 @@ class MarcacionController extends AppBaseController
       return $dato =[
         'minutos' => $total,
         'tp'      => $tp_cuenta,
+        'autorizado'  => $autorizado,
+        'observacion' => $observacion,
       ];
     }
 

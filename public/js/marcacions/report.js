@@ -151,8 +151,11 @@ $("#search"  ).click(function() {
           },
         ],
         "fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
-          if( aData.tp_resto_entrada ===  'resto'){
+          if( parseInt(aData.total_negativo) > 0 ){
             $('td', nRow).css('background-color', '#EA8080');
+          }
+          if( (aData.autorizado_entrada != null) || (aData.autorizado_salida != null) ){
+            $('td', nRow).css('background-color', '#90EE90');
           }
         },
         'columns':[
@@ -169,6 +172,10 @@ $("#search"  ).click(function() {
            {data:"resto_salida"},
            {data:"total_positivo"},
            {data:"total_negativo"},
+           {data:"autorizado_entrada"},
+           {data:"observacion_entrada"},
+           {data:"autorizado_salida"},
+           {data:"observacion_salida"},
            // {data:"status"},
          ]
     });

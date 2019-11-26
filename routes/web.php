@@ -45,7 +45,12 @@ Route::group(['middleware' => 'auth'], function(){
 
   Route::resource('passwordoEmpleados', 'PasswordoEmpleadoController');
 
+  Route::resource('horarios', 'HorarioController');
+
+  Route::resource('autorizacionEmpleados', 'AutorizacionEmpleadoController');
+
+  Route::post('/searchAutorizacion',   'AutorizacionEmpleadoController@searchAutorizacion');
+
+  Route::post('/sendAutorizacion',     'AutorizacionEmpleadoController@sendAutorizacion');
+
 });
-
-
-Route::resource('horarios', 'HorarioController');
