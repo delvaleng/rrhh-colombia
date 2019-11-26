@@ -182,6 +182,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
 
     ],
 
@@ -237,6 +238,8 @@ return [
         'Html'         => Collective\Html\HtmlFacade::class,
         'Flash'        => Laracasts\Flash\Flash::class,
         'DataTables'   => Yajra\DataTables\Facades\DataTables::class,
+        'Excel'        => Maatwebsite\Excel\Facades\Excel::class,
+
     ],
 
 ];

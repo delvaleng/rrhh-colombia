@@ -38,10 +38,14 @@ Route::group(['middleware' => 'auth'], function(){
 
   // Route::resource('marcacions', 'MarcacionController');
   Route::get('/marcacions',      'MarcacionController@index')->name('marcacions.index');
-  Route::get('/marcacions',      'MarcacionController@index')->name('marcacions.index');
 
+  Route::get('/report',          'MarcacionController@report')->name('marcacions.report');
 
+  Route::post('/reportSearch',   'MarcacionController@reportSearch')->name('marcacions.reportSearch');
 
   Route::resource('passwordoEmpleados', 'PasswordoEmpleadoController');
 
 });
+
+
+Route::resource('horarios', 'HorarioController');

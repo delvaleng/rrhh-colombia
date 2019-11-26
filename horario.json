@@ -1,0 +1,64 @@
+[
+  {
+    "name"       : "id",
+    "dbType"     : "increments",
+    "htmlType"   : "",
+    "validations": "",
+    "searchable" : false,
+    "fillable"   : false,
+    "primary"    : true,
+    "inForm"     : false,
+    "inIndex"    : false
+  },
+  {
+    "name"       : "dia",
+    "dbType"     : "text",
+    "htmlType"   : "text",
+    "validations": "",
+    "searchable" : true
+  },
+  {
+    "name"       : "entrada",
+    "dbType"     : "time",
+    "htmlType"   : "time",
+    "validations": "",
+    "searchable" : true
+  },
+  {
+    "name"       : "salida",
+    "dbType"     : "time",
+    "htmlType"   : "time",
+    "validations": "",
+    "searchable" : true
+  },
+  {
+    "name"       : "status",
+    "dbType"     : "boolean:default,true",
+    "htmlType"   : "hidden",
+    "searchable" : true,
+    "inForm"     : false,
+    "inIndex"    : false
+  },
+  {
+    "name"       : "created_at",
+    "dbType"     : "timestamp",
+    "htmlType"   : "",
+    "validations": "",
+    "searchable" : false,
+    "fillable"   : false,
+    "primary"    : false,
+    "inForm"     : false,
+    "inIndex"    : false
+  },
+  {
+    "name"       : "updated_at",
+    "dbType"     : "timestamp",
+    "htmlType"   : "",
+    "validations": "",
+    "searchable" : false,
+    "fillable"   : false,
+    "primary"    : false,
+    "inForm"     : false,
+    "inIndex"    : false
+  }
+]

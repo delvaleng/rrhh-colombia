@@ -25,6 +25,9 @@
         <li class="{{ Request::is('tpDocumentoIdentidads*') ? 'active' : '' }}">
             <a href="{!! route('tpDocumentoIdentidads.index') !!}"><i class="fa fa-credit-card"></i><span>Documento de Identidad</span></a>
         </li>
+        <li class="{{ Request::is('horarios*') ? 'active' : '' }}">
+            <a href="{!! route('horarios.index') !!}"><i class="fa  fa-clock-o"></i><span>Horarios</span></a>
+        </li>
       </li>
     </ul>
 </li>
@@ -32,9 +35,13 @@
 <li class="{{ Request::is('empleados*') ? 'active' : '' }}">
     <a href="{!! route('empleados.index') !!}"><i class="fa fa-users"></i><span>Empleados</span></a>
 </li>
+<li class="{{ Request::is('passwordoEmpleados*') ? 'active' : '' }}">
+  <a href="{!! route('passwordoEmpleados.index') !!}"><i class="fa fa-unlock-alt"></i><span>Contraseña de Empleados</span></a>
+</li>
+
 <li class="{{ Request::is('marcacions*') ? 'active' : '' }}">
     <a href="{!! route('marcacions.index') !!}"><i class="fa fa-hand-pointer-o"></i><span>Marcaciones</span></a>
 </li>
-<li class="{{ Request::is('passwordoEmpleados*') ? 'active' : '' }}">
-    <a href="{!! route('passwordoEmpleados.index') !!}"><i class="fa fa-unlock-alt"></i><span>Contraseña de Empleados</span></a>
+<li class="{{ Request::is('marcacions*') ? 'active' : '' }}">
+    <a href="{!! route('marcacions.report') !!}"><i class="fa fa-file-excel-o"></i><span>Reporte Mensual</span></a>
 </li>
