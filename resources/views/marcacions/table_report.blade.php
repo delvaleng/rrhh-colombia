@@ -17,10 +17,10 @@
               <th>Min/Ttal(+)</th>
               <th>Min/Ttal(-)</th>
 
-              <th>S/Autorizado</th>
-              <th>S/Observacion</th>
               <th>E/Autorizado</th>
               <th>E/Observacion</th>
+              <th>S/Autorizado</th>
+              <th>S/Observacion</th>
             </tr>
         </thead>
         <tbody>
@@ -41,10 +41,10 @@
               <th>Min</th>
               <th>Min/Ttal(+)</th>
               <th>Min/Ttal(-)</th>
-              <th>S/Autorizado</th>
-              <th>S/Observacion</th>
               <th>E/Autorizado</th>
               <th>E/Observacion</th>
+              <th>S/Autorizado</th>
+              <th>S/Observacion</th>
             </tr>
         </tfoot>
     </table>
