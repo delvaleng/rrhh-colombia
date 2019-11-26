@@ -47,5 +47,5 @@
 </li>
 
 <li class="{{ Request::is('autorizacionEmpleados*') ? 'active' : '' }}">
-    <a href="{!! route('autorizacionEmpleados.index') !!}"><i class="fa fa-edit"></i><span>Autorizacion Empleados</span></a>
+    <a href="{!! route('autorizacionEmpleados.index') !!}"><i class="fa fa-user-secret"></i><span>Autorizacion Empleados</span></a>
 </li>
