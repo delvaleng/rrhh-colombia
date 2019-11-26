@@ -187,8 +187,14 @@ class MarcacionController extends AppBaseController
       $horaTermino = new DateTime($final);
 
       $interval = $horaInicio->diff($horaTermino);
+
+
+      $hora     = $interval->format('%H');
+      $minutos  = $interval->format('%i');
+      $total    = $minutos+($hora*60);
+
       return $dato =[
-        'minutos' => $interval->format('%i'),
+        'minutos' => $total,
         'tp'      => $tp_cuenta,
       ];
     }
@@ -259,7 +265,7 @@ class MarcacionController extends AppBaseController
 
             $fecha1 = \DateTime::createFromFormat('Y-m-d H:i:s',$validDay->created_at ); //new DateTime("2010-07-28 01:15:52");
             $fecha2 = new DateTime(now());
-            $fecha = $fecha1->diff($fecha2);
+            $fecha    = $fecha1->diff($fecha2);
             $hora     = $fecha->format('%H');
             $minutos  = $fecha->format('%i');
 
