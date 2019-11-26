@@ -108,6 +108,16 @@
             <div class="box-body">
               @include('marcacions.table_report')
             </div>
+            <div class="box-footer">
+              <div class="form-group"><div class="col-xs-12">
+                <label for="Datos">Leyenda:<br> <br>
+                <code>**H/Entrada : Hora oficial de entrada. <br>**H/Inicio  : Hora de llegada del empleado. <br>
+                  **H/Salida  : Hora oficial de salida.      <br>**H/Fin     : Hora de salida del empleado.  <br>
+                  **Min/Ttal(+)  : Minutos extras.           <br>**Min/Ttal(-)  : Minutos tarde.  <br>
+
+                </code>
+                </label></div></div>
+            </div>
         </div>
         <div class="text-center">
 
