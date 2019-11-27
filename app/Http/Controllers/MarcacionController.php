@@ -248,7 +248,7 @@ class MarcacionController extends AppBaseController
       }
 
       if ($latitud && $longitud){
-        return $datos =['latitud'=>$latitud, 'longitud'=>$longitud];
+        return $datos =['latitud'=>$latitud, 'longitud'=>$longitud, 'ip' =>$ip];
       }else {
         return $datos;
       }
