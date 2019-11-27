@@ -223,11 +223,41 @@ class MarcacionController extends AppBaseController
       ];
     }
 
+    function getRealIP(){
+
+           if (isset($_SERVER["HTTP_CLIENT_IP"])){
+
+               return $_SERVER["HTTP_CLIENT_IP"];
+
+           }elseif (isset($_SERVER["HTTP_X_FORWARDED_FOR"])){
+
+               return $_SERVER["HTTP_X_FORWARDED_FOR"];
+
+           }elseif (isset($_SERVER["HTTP_X_FORWARDED"])){
+
+               return $_SERVER["HTTP_X_FORWARDED"];
+
+           }elseif (isset($_SERVER["HTTP_FORWARDED_FOR"])){
+
+               return $_SERVER["HTTP_FORWARDED_FOR"];
+
+           }elseif (isset($_SERVER["HTTP_FORWARDED"])){
+
+               return $_SERVER["HTTP_FORWARDED"];
+
+           }else{
+
+               return $_SERVER["REMOTE_ADDR"];
+
+           }
+       }
+
     public function getCoordenadas()
     {
       $datos = null;
-      $páginaip  = file_get_contents('https://www.cual-es-mi-ip.net/');                $ip;
-      if ( preg_match('|Tu dirección IP es <span class="big-text font-arial">(.*?)</span>|is' , $páginaip , $cap ) ) {  $ip = $cap[1]; }
+      $ip =$this->getRealIP();
+      // $páginaip  = file_get_contents('https://www.cual-es-mi-ip.net/');                $ip;
+      // if ( preg_match('|Tu dirección IP es <span class="big-text font-arial">(.*?)</span>|is' , $páginaip , $cap ) ) {  $ip = $cap[1]; }
 
       $url="https://whatismyipaddress.com/ip/".$ip;
       $context = stream_context_create(
