@@ -120,20 +120,20 @@
 
                         <!-- Latitud Field -->
                         <div class="form-group col-sm-6">
-                          {!! Form::label('latitud', 'Latitud:') !!}
-                            {!! Form::text('latitud', ($coordenadas)? $coordenadas{'latitud'} : null, ['disabled'=> 'disabled', 'id'=> 'latitud', 'class' => 'form-control']) !!}
+                          <!-- {!! Form::label('latitud', 'Latitud:') !!} -->
+                            {!! Form::hidden('latitud', ($coordenadas)? $coordenadas{'latitud'} : null, ['disabled'=> 'disabled', 'id'=> 'latitud', 'class' => 'form-control']) !!}
                         </div>
 
                         <!-- Longitud Field -->
                         <div class="form-group col-sm-6">
-                          {!! Form::label('longitud', 'Longitud:') !!}
-                          {!! Form::text('longitud', ($coordenadas)? $coordenadas{'longitud'} : null, ['disabled'=> 'disabled', 'id'=> 'longitud', 'class' => 'form-control']) !!}
+                          <!-- {!! Form::label('longitud', 'Longitud:') !!} -->
+                          {!! Form::hidden('longitud', ($coordenadas)? $coordenadas{'longitud'} : null, ['disabled'=> 'disabled', 'id'=> 'longitud', 'class' => 'form-control']) !!}
                         </div>
 
                         <!-- Longitud Field -->
                         <div class="form-group col-sm-6">
-                          {!! Form::label('ip', 'IP:') !!}
-                          {!! Form::text('ip', ($coordenadas)? $coordenadas{'ip'} : null, ['disabled'=> 'disabled', 'id'=> 'ip', 'class' => 'form-control']) !!}
+                          <!-- {!! Form::label('ip', 'IP:') !!} -->
+                          {!! Form::hidden('ip', ($coordenadas)? $coordenadas{'ip'} : null, ['disabled'=> 'disabled', 'id'=> 'ip', 'class' => 'form-control']) !!}
                         </div>
 
                         <div class="form-group col-sm-12">

@@ -42,7 +42,8 @@ class Marcacion extends Model
         'latitud',
         'longitud',
         'observacion',
-        'status'
+        'status',
+        'ip_ubicacion'
     ];
 
     /**

@@ -345,6 +345,8 @@ class MarcacionController extends AppBaseController
             'observacion'      => $input{'observacion'},
             'latitud'          => $coordenadas{'latitud'},//$input{'latitud'},
             'longitud'         => $coordenadas{'longitud'},//$input{'longitud'},
+            'ip_address'       => $coordenadas{'ip'},//$input{'longitud'},
+
           ];
           Marcacion::create($marcar);
           if($id_tp_marcacion > 1){
