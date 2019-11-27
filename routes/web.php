@@ -38,6 +38,8 @@ Route::group(['middleware' => 'auth'], function(){
 
   // Route::resource('marcacions', 'MarcacionController');
   Route::get('/marcacions',      'MarcacionController@index')->name('marcacions.index');
+  Route::get('/marcacionsMaps/{long}/{lat}',  'MarcacionController@marcacionsMaps')->name('marcacions.maps');
+
 
   Route::get('/report',          'MarcacionController@report')->name('marcacions.report');
 

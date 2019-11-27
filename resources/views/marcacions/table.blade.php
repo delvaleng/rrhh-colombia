@@ -12,6 +12,7 @@
               <th>Hora Fin</th>
               <th>Total Min</th>
               <th>Observaciones</th>
+              <th>Ver Mapa</th>
 
               <!-- <th>Coordenadas</th> -->
             </tr>
@@ -20,7 +21,7 @@
         @foreach($marcacions as $marcacion)
             <tr>
               <td>{!! $marcacion->id !!}</td>
-              <td><a class="btn btn-primary btn-sm modalPermiso" data-id="{!! $marcacion->id !!}"><i class="fa fa-star-o"></i></a>
+              <td><a class="modalPermiso" data-id="{!! $marcacion->id !!}"><i class="fa fa-star-o"></i></a>
               </td>
 
               <!-- <td>{!! $marcacion->empleado->nombre !!} - {!! $marcacion->empleado->apellido !!}</td> -->
@@ -32,6 +33,14 @@
               <td>{!! $marcacion->hora_fin !!}</td>
               <td>{!! $marcacion->total_min !!}</td>
               <td>{!! $marcacion->observacion !!}</td>
+              @if ($marcacion->longitud && $marcacion->latitud)
+                <td><a class="gpsUbicacion"
+                  data-lat  = "{!! $marcacion->latitud !!}"
+                  data-long = "{!! $marcacion->longitud !!}"
+                  ><i class="fa fa-map-pin"></i></a></td>
+              @else
+              <td>UBICACION DESCONOCIDA</td>
+              @endif
 
               <!-- <td>{!! $marcacion->latitud !!} - {!! $marcacion->longitud !!}</td> -->
             </tr>

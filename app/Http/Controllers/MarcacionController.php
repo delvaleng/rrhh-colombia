@@ -52,7 +52,10 @@ class MarcacionController extends AppBaseController
             ->with('tpempleado', $tpempleado);
 
     }
-
+    public function marcacionsMaps($long, $lat) {
+      $long=$long; $lat=$lat;
+      return view('marcacions.maps', compact('long','lat'));
+    }
     public function report()
     {
       $tpempleado       =  Empleado::where('status', TRUE)

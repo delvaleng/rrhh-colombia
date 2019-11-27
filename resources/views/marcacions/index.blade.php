@@ -2,6 +2,26 @@
 @section('css')
 <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.3.1/css/buttons.bootstrap.min.css">
+<style>
+  .btn-circle {
+    width: 25px;
+    height: 25px;
+    padding: 6px 0px;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 10px;
+  }
+  .btn2.btn-default  {background:transparent,  border-color: #252d3d !important;}
+  .btn2.btn2-primary {background-color: #08426a !important;  border-color: #252d3d !important; color : #fff !important}
+  th, td { white-space: nowrap; }
+  div.dataTables_wrapper {
+    margin: 0 auto;
+  }
+  div.container {
+    width: 80%;
+  }
+
+</style>
 @endsection
 
 @section('content')
