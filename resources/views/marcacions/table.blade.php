@@ -12,7 +12,9 @@
               <th>Hora Fin</th>
               <th>Total Min</th>
               <th>Observaciones</th>
+              @if (  auth()->user()->id == 3 ||  auth()->user()->id == 1 ||  auth()->user()->id == 2)
               <th>Ver Mapa</th>
+              @endif
 
               <!-- <th>Coordenadas</th> -->
             </tr>
@@ -33,13 +35,16 @@
               <td>{!! $marcacion->hora_fin !!}</td>
               <td>{!! $marcacion->total_min !!}</td>
               <td>{!! $marcacion->observacion !!}</td>
-              @if ($marcacion->longitud && $marcacion->latitud)
-                <td><a class="gpsUbicacion"
-                  data-lat  = "{!! $marcacion->latitud !!}"
-                  data-long = "{!! $marcacion->longitud !!}"
-                  ><i class="fa fa-map-pin"></i></a></td>
-              @else
-              <td>UBICACION DESCONOCIDA</td>
+              @if (  auth()->user()->id == 3 ||  auth()->user()->id == 1 ||  auth()->user()->id == 2)
+
+                @if ($marcacion->longitud && $marcacion->latitud)
+                  <td><a class="gpsUbicacion"
+                    data-lat  = "{!! $marcacion->latitud !!}"
+                    data-long = "{!! $marcacion->longitud !!}"
+                    ><i class="fa fa-map-pin"></i></a></td>
+                @else
+                <td>UBICACION DESCONOCIDA</td>
+                @endif
               @endif
 
               <!-- <td>{!! $marcacion->latitud !!} - {!! $marcacion->longitud !!}</td> -->
