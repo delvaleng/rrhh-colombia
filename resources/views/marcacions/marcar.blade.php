@@ -120,12 +120,12 @@
 
                         <!-- Latitud Field -->
                         <div class="form-group col-sm-6">
-                            {!! Form::hidden('latitud', null, ['id'=> 'latitud', 'class' => 'form-control']) !!}
+                            {!! Form::text('latitud', ($latitud)? $latitud : null, ['id'=> 'latitud', 'class' => 'form-control']) !!}
                         </div>
 
                         <!-- Longitud Field -->
                         <div class="form-group col-sm-6">
-                            {!! Form::hidden('longitud', null, ['id'=> 'longitud', 'class' => 'form-control']) !!}
+                            {!! Form::text('longitud', ($longitud)? $longitud : null, ['id'=> 'longitud', 'class' => 'form-control']) !!}
                         </div>
 
 

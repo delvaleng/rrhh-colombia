@@ -36,7 +36,7 @@ class MarcacionController extends AppBaseController
      *
      * @return Response
      */
-    public function index(Request $request)
+    public function index( )
     {
       $tpempleado       =  Empleado::where('status', TRUE)
       ->select(DB::raw("UPPER(CONCAT(apellido,'  ', nombre)) AS name"), "empleados.id as id")
@@ -223,6 +223,20 @@ class MarcacionController extends AppBaseController
 
     public function marcar()
     {
+
+      $página_inicio = file_get_contents('https://www.cual-es-mi-ip.net/geolocalizar-ip-mapa');
+      $latitud;
+      $longitud;
+
+      if ( preg_match('|<td id="latitud" data-latitud="(.*?)"><strong>(.*?)</strong></td>|is' , $página_inicio , $cap ) )
+      {
+          $latitud = $cap[1];
+      }
+      if ( preg_match('|<td id="longitud" data-longitud="(.*?)"><strong>(.*?)</strong></td>|is' , $página_inicio , $cap ) )
+      {
+          $longitud = $cap[1];
+      }
+
       $empleado       =  Empleado::where('status', TRUE)
       ->select(DB::raw("UPPER(CONCAT(apellido,'  ', nombre)) AS name"), "empleados.id as id")
       ->orderBy('name',  'ASC')
@@ -230,7 +244,7 @@ class MarcacionController extends AppBaseController
 
       $tpmarcacion   = TpMarcacion::WHERE('status', '=', 'TRUE')->orderBy('id', 'ASC')->pluck('descripcion', 'id');
 
-      return view('marcacions.marcar', compact('tpmarcacion', 'empleado'));
+      return view('marcacions.marcar', compact('tpmarcacion', 'empleado', 'latitud', 'longitud'));
     }
 
 
@@ -253,6 +267,20 @@ class MarcacionController extends AppBaseController
      */
     public function store(CreateMarcacionRequest $request)
     {
+
+        $página_inicio = file_get_contents('https://www.cual-es-mi-ip.net/geolocalizar-ip-mapa');
+        $latitud;
+        $longitud;
+
+        if ( preg_match('|<td id="latitud" data-latitud="(.*?)"><strong>(.*?)</strong></td>|is' , $página_inicio , $cap ) )
+        {
+            $latitud = $cap[1];
+        }
+        if ( preg_match('|<td id="longitud" data-longitud="(.*?)"><strong>(.*?)</strong></td>|is' , $página_inicio , $cap ) )
+        {
+            $longitud = $cap[1];
+        }
+
         $input       = $request->all();
         $password    = $input{'password'};
         $id_empleado = $input{'id_empleado'};
@@ -275,8 +303,8 @@ class MarcacionController extends AppBaseController
             'dia'              => date("Y-m-d"),
             'hora_inicio'      => date('H:i:s'),
             'observacion'      => $input{'observacion'},
-            'latitud'          => $input{'latitud'},
-            'longitud'         => $input{'longitud'},
+            'latitud'          => $latitud,//$input{'latitud'},
+            'longitud'         => $longitud,//$input{'longitud'},
           ];
           Marcacion::create($marcar);
           if($id_tp_marcacion > 1){
