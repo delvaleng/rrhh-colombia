@@ -35,7 +35,7 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAph1Y5uOO5kNkeZFzcy1odYf4ADNSOmng&callback=initMap" type="text/javascript"></script>
 <script type="text/javascript">
 
-    var latlng = new google.maps.LatLng(4.7163849, -74.0652501);
+    var latlng = new google.maps.LatLng(4.7248181,-74.0716749);
     var latlng2 = new google.maps.LatLng($("#latitud").val(), $("#longitud").val());
 
     // definimos valor por defecto
