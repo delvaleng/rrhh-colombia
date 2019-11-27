@@ -121,13 +121,13 @@
                         <!-- Latitud Field -->
                         <div class="form-group col-sm-6">
                           {!! Form::label('latitud', 'Latitud:') !!}
-                            {!! Form::text('latitud', ($coordenadas)? $coordenadas{'latitud'} : null, ['id'=> 'latitud', 'class' => 'form-control']) !!}
+                            {!! Form::text('latitud', ($coordenadas)? $coordenadas{'latitud'} : null, ['disabled'=> 'disabled', 'id'=> 'latitud', 'class' => 'form-control']) !!}
                         </div>
 
                         <!-- Longitud Field -->
                         <div class="form-group col-sm-6">
                           {!! Form::label('longitud', 'Longitud:') !!}
-                          {!! Form::text('longitud', ($coordenadas)? $coordenadas{'longitud'} : null, ['id'=> 'longitud', 'class' => 'form-control']) !!}
+                          {!! Form::text('longitud', ($coordenadas)? $coordenadas{'longitud'} : null, ['disabled'=> 'disabled', 'id'=> 'longitud', 'class' => 'form-control']) !!}
                         </div>
 
 
