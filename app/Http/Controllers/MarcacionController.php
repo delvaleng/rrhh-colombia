@@ -220,22 +220,41 @@ class MarcacionController extends AppBaseController
       ];
     }
 
-
-    public function marcar()
+    public function getCoordenadas()
     {
+      $datos = null;
+      $páginaip  = file_get_contents('https://www.cual-es-mi-ip.net/');                $ip;
+      if ( preg_match('|Tu dirección IP es <span class="big-text font-arial">(.*?)</span>|is' , $páginaip , $cap ) ) {  $ip = $cap[1]; }
 
-      $página_inicio = file_get_contents('https://www.cual-es-mi-ip.net/geolocalizar-ip-mapa');
-      $latitud;
-      $longitud;
+      $url="https://whatismyipaddress.com/ip/".$ip;
+      $context = stream_context_create(
+        array(
+            "http" => array(
+                "header" => "User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36"
+            )
+        )
+      );
 
-      if ( preg_match('|<td id="latitud" data-latitud="(.*?)"><strong>(.*?)</strong></td>|is' , $página_inicio , $cap ) )
-      {
-          $latitud = $cap[1];
+      $página_inicio = file_get_contents($url, false,$context);     $latitud = null;      $longitud = null;
+      if ( preg_match('|<tr><th>Latitude:</th><td>\n(.*?)&nbsp;&nbsp;(.*?)</td></tr>|is' , $página_inicio , $cap ) ) {
+        $latitud = $cap[1];
       }
-      if ( preg_match('|<td id="longitud" data-longitud="(.*?)"><strong>(.*?)</strong></td>|is' , $página_inicio , $cap ) )
+      if (  preg_match('|<tr><th>Longitude:</th><td>\n(.*?)&nbsp;&nbsp;(.*?)</td></tr>|is' , $página_inicio , $cap ) )
       {
           $longitud = $cap[1];
       }
+
+      if ($latitud && $longitud){
+        return $datos =['latitud'=>$latitud, 'longitud'=>$longitud];
+      }else {
+        return $datos;
+      }
+
+    }
+
+    public function marcar()
+    {
+      $coordenadas = $this->getCoordenadas();
 
       $empleado       =  Empleado::where('status', TRUE)
       ->select(DB::raw("UPPER(CONCAT(apellido,'  ', nombre)) AS name"), "empleados.id as id")
@@ -244,7 +263,7 @@ class MarcacionController extends AppBaseController
 
       $tpmarcacion   = TpMarcacion::WHERE('status', '=', 'TRUE')->orderBy('id', 'ASC')->pluck('descripcion', 'id');
 
-      return view('marcacions.marcar', compact('tpmarcacion', 'empleado', 'latitud', 'longitud'));
+      return view('marcacions.marcar', compact('tpmarcacion', 'empleado', 'coordenadas'));
     }
 
 
@@ -267,19 +286,7 @@ class MarcacionController extends AppBaseController
      */
     public function store(CreateMarcacionRequest $request)
     {
-
-        $página_inicio = file_get_contents('https://www.cual-es-mi-ip.net/geolocalizar-ip-mapa');
-        $latitud;
-        $longitud;
-
-        if ( preg_match('|<td id="latitud" data-latitud="(.*?)"><strong>(.*?)</strong></td>|is' , $página_inicio , $cap ) )
-        {
-            $latitud = $cap[1];
-        }
-        if ( preg_match('|<td id="longitud" data-longitud="(.*?)"><strong>(.*?)</strong></td>|is' , $página_inicio , $cap ) )
-        {
-            $longitud = $cap[1];
-        }
+        $coordenadas = $this->getCoordenadas();
 
         $input       = $request->all();
         $password    = $input{'password'};
@@ -303,8 +310,8 @@ class MarcacionController extends AppBaseController
             'dia'              => date("Y-m-d"),
             'hora_inicio'      => date('H:i:s'),
             'observacion'      => $input{'observacion'},
-            'latitud'          => $latitud,//$input{'latitud'},
-            'longitud'         => $longitud,//$input{'longitud'},
+            'latitud'          => $coordenadas{'latitud'},//$input{'latitud'},
+            'longitud'         => $coordenadas{'longitud'},//$input{'longitud'},
           ];
           Marcacion::create($marcar);
           if($id_tp_marcacion > 1){
