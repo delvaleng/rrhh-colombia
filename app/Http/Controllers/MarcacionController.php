@@ -109,21 +109,32 @@ class MarcacionController extends AppBaseController
         $hora_inicio   = $key->hora_inicio;
         $hora_salida   = ($salidaQuery)? $salidaQuery->hora_inicio : null;
 
-        $resto_entrada = $this->restoHoras($entrada, $hora_inicio, 'entrada', $key->id);
-        $total_positivo= ($resto_entrada{'tp'} == 'suma' )? $total_positivo + $resto_entrada{'minutos'} : $total_positivo;
-        $total_negativo= ($resto_entrada{'tp'} == 'resto'&& $resto_entrada{'autorizado'} == null)? $total_negativo + $resto_entrada{'minutos'} : $total_negativo;
+        //HORAS DE ENTRADA
+        $resto_entrada  = $this->restoHoras($entrada, $hora_inicio, 'entrada', $key->id);
 
-        $resto_salida  = ($hora_salida != null ) ? $this->restoHoras($salida,  $hora_salida, 'salida', $salidaQuery->id) : null;
-        $total_positivo= ($resto_salida!= null)?
+        $total_positivo = ($resto_entrada{'tp'} == 'suma' )? $total_positivo + $resto_entrada{'minutos'} : $total_positivo;
+
+        $total_negativo = ($resto_entrada{'tp'} == 'resto' && $resto_entrada{'autorizado'} == null)?
+        $total_negativo + $resto_entrada{'minutos'} : $total_negativo;
+        //HORAS DE ENTRADA
+
+        //HORAS DE SALIDA
+        $resto_salida   = ($hora_salida != null ) ? $this->restoHoras($salida,  $hora_salida, 'salida', $salidaQuery->id) : null;
+
+        $total_positivo = ($resto_salida!= null)?
         ($resto_salida{'tp'} == 'suma' )? $total_positivo + $resto_salida{'minutos'} : $total_positivo
-        : null;
+        : $total_positivo;
         $total_negativo= ($resto_salida!= null)?
         ($resto_salida{'tp'} == 'resto' && $resto_salida{'autorizado'} == null)? $total_negativo + $resto_salida{'minutos'} : $total_negativo
-        : null;
+        : $total_negativo;
+        //HORAS DE SALIDA
+
+
 
 
 
         $dato = [
+          'id'               => $key->id,
           'num'              => ++$i,
           'nombre'           => ($key->id_empleado) ? $key->empleado->nombre   : '-',
           'apellido'         => ($key->id_empleado) ? $key->empleado->apellido : '-',
