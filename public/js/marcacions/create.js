@@ -12,7 +12,6 @@ $(document).ready(function() {
       navigator.geolocation.getCurrentPosition(function(position){
         console.log(position.coords.latitude);
         console.log(position.coords.longitude);
-
         $("#latitud").val(position.coords.latitude);
         $("#longitud").val(position.coords.longitude);
       });
@@ -22,6 +21,10 @@ $(document).ready(function() {
     var flag = true;
     var mensaje = '';
 
+    if($("#longitud").val() == '' ||  $("#latitud").val() == ''){
+      flag = false;
+      mensaje += 'Debeer permitir tu ubicacion\n';
+    }
     if($("#id_empleado").val() == ''){
       flag = false;
       mensaje += 'Debes seleccionar el empleado\n';

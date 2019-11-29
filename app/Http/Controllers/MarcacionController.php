@@ -328,11 +328,11 @@ class MarcacionController extends AppBaseController
      *
      * @return Response
      */
-    public function store(CreateMarcacionRequest $request)
+    public function store()
     {
         $coordenadas = $this->getCoordenadas();
 
-        $input       = $request->all();
+        $input       = request()->all();
         $password    = $input{'password'};
         $id_empleado = $input{'id_empleado'};
         $id_tp_marcacion = $input{'id_tp_marcacion'};
@@ -354,9 +354,9 @@ class MarcacionController extends AppBaseController
             'dia'              => date("Y-m-d"),
             'hora_inicio'      => date('H:i:s'),
             'observacion'      => $input{'observacion'},
-            'latitud'          => $coordenadas{'latitud'},//$input{'latitud'},
-            'longitud'         => $coordenadas{'longitud'},//$input{'longitud'},
-            'ip_ubicacion'       => $coordenadas{'ip'},//$input{'longitud'},
+            'latitud'          => $input{'latitud'},
+            'longitud'         => $input{'longitud'},
+            'ip_ubicacion'     => $coordenadas{'ip'},//$input{'longitud'},
 
           ];
           Marcacion::create($marcar);
