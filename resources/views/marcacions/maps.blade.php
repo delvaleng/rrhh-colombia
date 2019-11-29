@@ -34,47 +34,39 @@
 @section('scripts')
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAph1Y5uOO5kNkeZFzcy1odYf4ADNSOmng&callback=initMap" type="text/javascript"></script>
 <script type="text/javascript">
+  var latlng = new google.maps.LatLng(4.7248181,-74.0716749);
+  var myOptions = {
+    zoom: 14,
+    center: latlng,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  };
+  var map    = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+  var marker = new google.maps.Circle({
+    strokeColor: '#0000FF',
+     strokeOpacity: 0.8,
+     strokeWeight: 2,
+     fillColor: '#FF0000',
+     fillOpacity: 0.35,
+     map: map,
+     center: latlng,
+     radius: 100
+  });
+  marker.setMap(map);
 
-    var latlng = new google.maps.LatLng(4.7248181,-74.0716749);
-    var latlng2 = new google.maps.LatLng($("#latitud").val(), $("#longitud").val());
+  var latlng2 = new google.maps.LatLng($("#latitud").val(), $("#longitud").val());
 
-    // definimos valor por defecto
-    var myOptions = {
-        zoom: 14,
-        center: latlng,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
+  // añadimos una segunda marca
+  var marker2 = new google.maps.Marker({
+      position: latlng2,
+      title: 'USUARIO MARCACION',
+      draggable: true
+  });
+  marker2.setMap(map);
+  var popup2 = new google.maps.InfoWindow({
+      content: 'USUARIO MARCACION',
+      position: latlng2
+  });
+  popup2.open(map);
 
-    // generamos el mapa
-    var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-
-    // añadimos una marca
-    var marker = new google.maps.Marker({
-        position: latlng,
-        title: 'WIN SERVICES COLOMBIA',
-        icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
-        draggable: true
-    });
-    // añadimos una segunda marca
-    var marker2 = new google.maps.Marker({
-        position: latlng2,
-        title: 'USUARIO MARCACION',
-        draggable: true
-    });
-
-    marker.setMap(map);
-    marker2.setMap(map);
-
-    var popup = new google.maps.InfoWindow({
-        content: 'WIN SERVICES COLOMBIA',
-        position: latlng
-    });
-
-    var popup2 = new google.maps.InfoWindow({
-        content: 'USUARIO MARCACION',
-        position: latlng2
-    });
-    // popup.open(map);
-    // popup2.open(map);
 </script>
 @endsection

@@ -14,6 +14,7 @@
               <th>Observaciones</th>
               @if (  auth()->user()->id == 3 ||  auth()->user()->id == 1 ||  auth()->user()->id == 2)
               <th>Ver Mapa</th>
+              <th>IP</th>
               @endif
 
               <!-- <th>Coordenadas</th> -->
@@ -45,9 +46,8 @@
                 @else
                 <td>UBICACION DESCONOCIDA</td>
                 @endif
+                <td>{!! ($marcacion->ip_ubicacion)? $marcacion->ip_ubicacion : '' !!}</td>
               @endif
-
-              <!-- <td>{!! $marcacion->latitud !!} - {!! $marcacion->longitud !!}</td> -->
             </tr>
         @endforeach
         </tbody>
