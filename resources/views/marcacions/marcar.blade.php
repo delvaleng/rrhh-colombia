@@ -137,7 +137,7 @@
                         <!-- Longitud Field -->
                         <div class="form-group col-sm-6">
                           <!-- {!! Form::label('ip', 'IP:') !!} -->
-                          {!! Form::hidden('ip', ($coordenadas)? $coordenadas{'ip'} : null, ['disabled'=> 'disabled', 'id'=> 'ip', 'class' => 'form-control']) !!}
+                          {!! Form::hidden('ip', null, ['disabled'=> 'disabled', 'id'=> 'ip', 'class' => 'form-control']) !!}
                         </div>
 
                         <div class="form-group col-sm-12">
