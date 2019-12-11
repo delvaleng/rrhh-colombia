@@ -298,7 +298,7 @@ class MarcacionController extends AppBaseController
 
     public function marcar()
     {
-      $coordenadas = $this->getCoordenadas();
+      // $coordenadas = $this->getCoordenadas();
 
       $empleado       =  Empleado::where('status', TRUE)
       ->select(DB::raw("UPPER(CONCAT(apellido,'  ', nombre)) AS name"), "empleados.id as id")
