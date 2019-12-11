@@ -263,37 +263,9 @@ class MarcacionController extends AppBaseController
            }
        }
 
-    public function getCoordenadas()
-    {
-      $datos = null;
-      $ip =$this->getRealIP();
-      $páginaip  = file_get_contents('https://www.cual-es-mi-ip.net/');                $ip;
-      if ( preg_match('|Tu dirección IP es <span class="big-text font-arial">(.*?)</span>|is' , $páginaip , $cap ) ) {  $ip = $cap[1]; }
-
-      // $url="https://whatismyipaddress.com/ip/".$ip;
-      // $context = stream_context_create(
-      //   array(
-      //       "http" => array(
-      //           "header" => "User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36"
-      //       )
-      //   )
-      // );
-      //
-      // $página_inicio = file_get_contents($url, false,$context);     $latitud = null;      $longitud = null;
-      // if ( preg_match('|<tr><th>Latitude:</th><td>\n(.*?)&nbsp;&nbsp;(.*?)</td></tr>|is' , $página_inicio , $cap ) ) {
-      //   $latitud = $cap[1];
-      // }
-      // if (  preg_match('|<tr><th>Longitude:</th><td>\n(.*?)&nbsp;&nbsp;(.*?)</td></tr>|is' , $página_inicio , $cap ) )
-      // {
-      //     $longitud = $cap[1];
-      // }
-
-        return $datos =['latitud'=>null, 'longitud'=>null, 'ip' =>$ip];
-      }
 
     public function marcar()
     {
-      // $coordenadas = $this->getCoordenadas();
 
       $empleado       =  Empleado::where('status', TRUE)
       ->select(DB::raw("UPPER(CONCAT(apellido,'  ', nombre)) AS name"), "empleados.id as id")
@@ -302,7 +274,7 @@ class MarcacionController extends AppBaseController
 
       $tpmarcacion   = TpMarcacion::WHERE('status', '=', 'TRUE')->orderBy('id', 'ASC')->pluck('descripcion', 'id');
 
-      return view('marcacions.marcar', compact('tpmarcacion', 'empleado', 'coordenadas'));
+      return view('marcacions.marcar', compact('tpmarcacion', 'empleado'));
     }
 
 
@@ -325,7 +297,6 @@ class MarcacionController extends AppBaseController
      */
     public function store()
     {
-        // $coordenadas = $this->getCoordenadas();
 
         $input       = request()->all();
         $password    = $input{'password'};
