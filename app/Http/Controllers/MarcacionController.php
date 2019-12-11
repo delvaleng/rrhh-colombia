@@ -288,13 +288,8 @@ class MarcacionController extends AppBaseController
       //     $longitud = $cap[1];
       // }
 
-      if ($latitud && $longitud){
         return $datos =['latitud'=>null, 'longitud'=>null, 'ip' =>$ip];
-      }else {
-        return $datos;
       }
-
-    }
 
     public function marcar()
     {
@@ -330,7 +325,7 @@ class MarcacionController extends AppBaseController
      */
     public function store()
     {
-        $coordenadas = $this->getCoordenadas();
+        // $coordenadas = $this->getCoordenadas();
 
         $input       = request()->all();
         $password    = $input{'password'};
@@ -356,7 +351,7 @@ class MarcacionController extends AppBaseController
             'observacion'      => $input{'observacion'},
             'latitud'          => $input{'latitud'},
             'longitud'         => $input{'longitud'},
-            'ip_ubicacion'     => $coordenadas{'ip'},//$input{'longitud'},
+            'ip_ubicacion'     => $this->getRealIP(),//$input{'longitud'},
 
           ];
           Marcacion::create($marcar);
