@@ -6,7 +6,7 @@
 
 <!-- Id Empleado Field -->
 <div class="form-group">
-    {!! Form::label('id_empleado', 'Id Empleado:') !!}
+    {!! Form::label('id_empleado', 'Empleado:') !!}
     <p>{!! $passwordoEmpleado->id_empleado !!}</p>
 </div>
 
@@ -33,4 +33,3 @@
     {!! Form::label('updated_at', 'Updated At:') !!}
     <p>{!! $passwordoEmpleado->updated_at !!}</p>
 </div>
-

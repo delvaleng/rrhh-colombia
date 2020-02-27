@@ -1,15 +1,14 @@
 <div class="table-responsive">
-    <table class="table" id="rols-table">
+    <table class="stripe row-border order-column compact" id="rols-table">
         <thead>
             <tr>
-                <th>Rol</th>
-                <th colspan="3">Accion</th>
+              <th>Acci&oacute;n</th>
+              <th>Rol</th>
             </tr>
         </thead>
         <tbody>
         @foreach($rols as $rol)
             <tr>
-                <td>{!! $rol->rol !!}</td>
                 <td>
                     {!! Form::open(['route' => ['rols.destroy', $rol->id], 'method' => 'delete']) !!}
                     <div class='btn-group'>
@@ -19,6 +18,7 @@
                     </div>
                     {!! Form::close() !!}
                 </td>
+                <td>{!! $rol->rol !!}</td>
             </tr>
         @endforeach
         </tbody>

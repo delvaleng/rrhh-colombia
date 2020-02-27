@@ -2,24 +2,22 @@
 
 namespace App\Repositories;
 
-use App\Models\Horario;
+use App\Models\HorarioUser;
 use App\Repositories\BaseRepository;
 
 /**
- * Class HorarioRepository
+ * Class HorarioUserRepository
  * @package App\Repositories
- * @version November 26, 2019, 7:54 am -05
+ * @version February 27, 2020, 10:36 am -05
 */
 
-class HorarioRepository extends BaseRepository
+class HorarioUserRepository extends BaseRepository
 {
     /**
      * @var array
      */
     protected $fieldSearchable = [
-        'dia',
-        'entrada',
-        'salida',
+        'id_empleado',
         'status'
     ];
 
@@ -38,7 +36,7 @@ class HorarioRepository extends BaseRepository
      **/
     public function model()
     {
-        return Horario::class;
+        return HorarioUser::class;
     }
     
     public function with($relations) {

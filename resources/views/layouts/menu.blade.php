@@ -25,8 +25,8 @@
         <li class="{{ Request::is('tpDocumentoIdentidads*') ? 'active' : '' }}">
             <a href="{!! route('tpDocumentoIdentidads.index') !!}"><i class="fa fa-credit-card"></i><span>Documento de Identidad</span></a>
         </li>
-        <li class="{{ Request::is('horarios*') ? 'active' : '' }}">
-            <a href="{!! route('horarios.index') !!}"><i class="fa  fa-clock-o"></i><span>Horarios</span></a>
+        <li class="{{ Request::is('horarioUsers*') ? 'active' : '' }}">
+            <a href="{!! route('horarioUsers.index') !!}"><i class="fa  fa-clock-o"></i><span>Horario Users</span></a>
         </li>
       </li>
     </ul>

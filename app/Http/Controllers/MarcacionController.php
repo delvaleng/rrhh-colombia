@@ -12,6 +12,8 @@ use App\Models\PasswordoEmpleado;
 use App\Models\TpMarcacion;
 use App\Models\Marcacion;
 use App\Models\Empleado;
+use App\Models\HorarioUser;
+
 use App\Models\AutorizacionEmpleado;
 use App\Models\Horario;
 use Flash;
@@ -66,7 +68,28 @@ class MarcacionController extends AppBaseController
       return view('marcacions.report', compact('tpempleado'));
     }
 
+    public function getMarcacions() {
+      // code...
+      $formulario    = request()->formulario;
+      $marcacions  = (new Marcacion)->with('empleado', 'tpMarcacion')->newQuery();
 
+      $startDate  = ($formulario{'startDate'})?  $formulario{'startDate'} : null;   unset( $formulario{'startDate'});
+      $endDate    = ($formulario{'endDate'}  )?  $formulario{'endDate'}   : null;   unset( $formulario{'endDate'});
+
+      if($startDate != null && $endDate != null)       {
+        $marcacions = $marcacions->whereBetween('created_at',  [date("Y-m-d", strtotime($startDate) ), date("Y-m-d", strtotime($endDate  ) ) ] ); }
+
+      if ($formulario{'id_empleado'}) {
+        $marcacions  = $marcacions->where('id_empleado', $formulario{'id_empleado'});
+      }
+
+          $marcacions = $marcacions->get();
+
+          return response()->json([
+            'data' => $marcacions,
+          ]);
+
+    }
     public function reportSearch()
     {
       $datos =[];
@@ -97,7 +120,9 @@ class MarcacionController extends AppBaseController
       foreach ($marcacions as $key) {
 
         $dia_letra     =  $this->conocerDiaSemanaFecha($key->dia);
-        $searchHorario = Horario::where('dia', $dia_letra)->first();
+        $horarioUser   = HorarioUser::where('id_empleado', $key->id_empleado)->first();
+
+        $searchHorario = Horario::where('dia', $dia_letra)->where('id_horario_user', $horarioUser->id)->first();
         $salidaQuery   = Marcacion::where('dia', $key->dia)
           ->where('id_tp_marcacion', 4)
           ->where('id_empleado', $key->id_empleado)

@@ -4,25 +4,20 @@ namespace App\Models;
 
 use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Models\HorarioUser;
-use App\Models\Empleado;
-
 
 /**
- * Class Horario
+ * Class HorarioUser
  * @package App\Models
- * @version November 26, 2019, 7:53 am -05
+ * @version February 27, 2020, 10:36 am -05
  *
- * @property string dia
- * @property time entrada
- * @property time salida
+ * @property integer id_empleado
  * @property boolean status
  */
-class Horario extends Model
+class HorarioUser extends Model
 {
     use SoftDeletes;
 
-    public $table = 'horarios';
+    public $table = 'horario_users';
 
 
     protected $dates = ['deleted_at'];
@@ -30,10 +25,7 @@ class Horario extends Model
 
 
     public $fillable = [
-        'id_horario_user',
-        'dia',
-        'entrada',
-        'salida',
+        'id_empleado',
         'status'
     ];
 
@@ -44,7 +36,7 @@ class Horario extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'dia' => 'string',
+        'id_empleado' => 'integer',
         'status' => 'boolean'
     ];
 
@@ -57,9 +49,9 @@ class Horario extends Model
 
     ];
 
-    public function horarioEmpleado()
+    public function empleado()
     {
-      return $this->hasManyThrough(Empleado::class, HorarioUser::class, 'id','id', 'id_horario_user', 'id_empleado');
+      return $this->belongsTo(Empleado::class, 'id_empleado');
     }
 
 

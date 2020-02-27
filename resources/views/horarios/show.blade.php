@@ -11,7 +11,7 @@
             <div class="box-body">
                 <div class="row" style="padding-left: 20px">
                     @include('horarios.show_fields')
-                    <a href="{!! route('horarios.index') !!}" class="btn btn-default">Back</a>
+                    <a href="{!! route('horarioUsers.show', [$horario->id_horario_user]) !!}" class="btn btn-default">Volver</a>
                 </div>
             </div>
         </div>

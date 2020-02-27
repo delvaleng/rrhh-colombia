@@ -36,14 +36,16 @@ Route::group(['middleware' => 'auth'], function(){
 
   Route::resource('empleados', 'EmpleadoController');
 
-  // Route::resource('marcacions', 'MarcacionController');
-  Route::get('/marcacions',      'MarcacionController@index')->name('marcacions.index');
+  Route::resource('horarioUsers',             'HorarioUserController');
+  
   Route::get('/marcacionsMaps/{long}/{lat}',  'MarcacionController@marcacionsMaps')->name('marcacions.maps');
+  Route::get('/marcacions',                   'MarcacionController@index')->name('marcacions.index');
+  Route::get('/report',                       'MarcacionController@report')->name('marcacions.report');
+  Route::post('/getMarcacions',               'MarcacionController@getMarcacions')->name('marcacions.getMarcacions');
+  Route::post('/reportSearch',                'MarcacionController@reportSearch')->name('marcacions.reportSearch');
 
 
-  Route::get('/report',          'MarcacionController@report')->name('marcacions.report');
 
-  Route::post('/reportSearch',   'MarcacionController@reportSearch')->name('marcacions.reportSearch');
 
   Route::resource('passwordoEmpleados', 'PasswordoEmpleadoController');
 
