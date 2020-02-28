@@ -5,6 +5,11 @@ var regexletras  = /^[a-zA-Z\s]*$/;
 var regexletnum  = /^[a-zA-Z0-9]+$/;
 var regexfecha   = /^([0-9]{2}\/[0-9]{2}\/[0-9]{4})$/;
 var regexaño     = /^([0-9]{4})$/;
+var ejeX  = 4.7248181,    ejeY=-74.0716749;
+var radio = 5;
+
+// var latlng = new google.maps.LatLng(4.7248181,-74.0716749);
+
 
 $(document).ready(function() {
 
@@ -14,8 +19,18 @@ $(document).ready(function() {
         console.log(position.coords.longitude);
         $("#latitud").val(position.coords.latitude);
         $("#longitud").val(position.coords.longitude);
+        var dentro = dentroDelCirculo(position.coords.latitude,position.coords.longitude);
+        console.log('dentro?:' + dentroDelCirculo(position.coords.latitude,position.coords.longitude));
+        if(dentro != true){
+          $(".btnSend").attr("disabled", true);
+        }else {
+          $(".btnSend").attr("disabled", false);
+        }
       });
   }
+
+
+
 
   $('#marcacions-form').submit(function() {
     var flag = true;
@@ -46,3 +61,8 @@ $(document).ready(function() {
   });
 
 });
+
+
+function dentroDelCirculo(x,y) {
+ return ((ejeX-x)**2 + (ejeY-y)**2) <= radio**2;
+}
