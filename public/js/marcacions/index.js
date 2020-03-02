@@ -1,5 +1,5 @@
 $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
-
+var lat1  = 4.7248181,    lon1=-74.0716749;
 
 $(document).ready(function() {
 
@@ -86,6 +86,20 @@ $(document).ready(function() {
 });
 
 
+function Dist(lat1, lon1, lat2, lon2) {
+     rad = function (x) {
+         return x * Math.PI / 180;
+     }
+
+     var R = 6378.137;//Radio de la tierra en km
+     var dLat = rad(lat2 - lat1);
+     var dLong = rad(lon2 - lon1);
+     var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(rad(lat1)) * Math.cos(rad(lat2)) * Math.sin(dLong / 2) * Math.sin(dLong / 2);
+     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+     var d = R * c;
+     return d.toFixed(3);//Retorna tres decimales
+}
+
 
 //BUSQUEDA DE DATOS
 $("#search").unbind('click');
@@ -146,11 +160,12 @@ $("#search"  ).click(function() {
           },
         ],
         "fnRowCallback": function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
-          if( parseInt(aData.total_negativo) > 0 ){
-            $('td', nRow).css('background-color', '#EA8080');
-          }
-          if( (aData.autorizado_entrada != null) || (aData.autorizado_salida != null) ){
-            $('td', nRow).css('background-color', '#90EE90');
+
+          if(aData.latitud != null && aData.longitud != null){
+          var distancia = Dist(lat1, lon1, aData.latitud, aData.longitud);
+            if(distancia > 1){
+              $('td', nRow).css('background-color', '#EA8080');
+            }
           }
           $("td:first", nRow).html(iDisplayIndex +1);
           return nRow;
@@ -177,13 +192,19 @@ $("#search"  ).click(function() {
           {data:"dia",
           "render": function (data, type, row) {
             if(data) {
-              var d = new Date(data);
-              var data = d.getDate()+'-'+d.getMonth()+'-'+d.getFullYear();
-              return data;
+              var today = new Date(data);
+              var dd = today.getDate();
+              var mm = today.getMonth()+1; //January is 0!
+              var yyyy = today.getFullYear();
+              if(dd<10){dd='0'+dd} if(mm<10){mm='0'+mm}
+              var today = dd+'-'+mm+'-'+yyyy;
+              return today;
             }
               else{
                 return  '-';
               }
+              return (data)? data : '-';
+
           }},
           {data:"hora_inicio",
           "render": function (data, type, row) {
