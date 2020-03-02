@@ -103,9 +103,9 @@ function viewMap (position) {
   var distancia = Dist(lat1, lon1, lat, lon);
   console.log('distancia?:' + distancia);
     if(distancia > 1){
-      $(".btnSend").attr("disabled", true);
+      // $(".btnSend").attr("disabled", true);
     }else {
-      $(".btnSend").attr("disabled", false);
+      // $(".btnSend").attr("disabled", false);
     }
   }
 	// var link = "http://maps.google.com/?ll="+lat+","+lon+"&z=14";
