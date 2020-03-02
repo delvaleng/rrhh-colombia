@@ -88,9 +88,6 @@
               <div class="main-div">
                 <div class="panel"><h2>WIN | Colombia<br></h2></div>
 
-
-
-
                   <div class="content">
                     @include('flash::message')
                       {!! Form::open(['route' => 'marcacions.store', 'id'=> 'marcacions-form']) !!}
@@ -145,6 +142,9 @@
                       {!! Form::close() !!}
 
                   </div>
+
+                  <!-- <div id="mapcanvas" style="width:400px; height:400px"></div> -->
+
               </div>
               </div>
             </div>
@@ -154,6 +154,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAph1Y5uOO5kNkeZFzcy1odYf4ADNSOmng&callback=initMap" type="text/javascript"></script>
 
        <!-- <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.js"></script>
         <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.js"></script> -->

@@ -10,10 +10,10 @@ var lat1  = 4.7248181,    lon1=-74.0716749;
 
 
 $(document).ready(function() {
+  loadLocation ();
 
-  if (navigator.geolocation) { //check if geolocation is available
+  /*if (navigator.geolocation) { //check if geolocation is available
       navigator.geolocation.getCurrentPosition(function(position){
-
         console.log(position.coords.latitude);
         console.log(position.coords.longitude);
 
@@ -30,7 +30,7 @@ $(document).ready(function() {
           }
         }
       });
-  }
+  }*/
 
 
 
@@ -64,6 +64,63 @@ $(document).ready(function() {
   });
 
 });
+
+function loadLocation () {
+//inicializamos la funcion y definimos  el tiempo maximo ,las funciones de error y exito.
+navigator.geolocation.getCurrentPosition(viewMap,ViewError,{timeout:1000});
+}
+
+function viewMap (position) {
+
+  /*var success = function(position){
+    var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
+    var myOptions = {
+    zoom: 15,
+    center: latlng,
+    mapTypeControl: false,
+    navigationControlOptions: {style: google.maps.NavigationControlStyle.SMALL},
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+    }
+    var map = new google.maps.Map(document.getElementById("mapcanvas"), myOptions)
+    var marker = new google.maps.Marker({
+    position: latlng,
+    map: map,
+    title:"Estás aquí! (en un radio de "+position.coords.accuracy+" metros)"
+    })
+  }*/
+
+
+	var lon = position.coords.longitude;	//guardamos la longitud
+	var lat = position.coords.latitude;		//guardamos la latitud
+
+  $("#latitud").val(lat);
+  $("#longitud").val(lon);
+
+  console.log(lat);
+  console.log(lon);
+
+  if(lat != null && lon != null){
+  var distancia = Dist(lat1, lon1, lat, lon);
+  console.log('distancia?:' + distancia);
+    if(distancia > 1){
+      $(".btnSend").attr("disabled", true);
+    }else {
+      $(".btnSend").attr("disabled", false);
+    }
+  }
+	// var link = "http://maps.google.com/?ll="+lat+","+lon+"&z=14";
+	// document.getElementById("long").innerHTML = "Longitud: "+lon;
+	// document.getElementById("latitud").innerHTML = "Latitud: "+lat;
+	// document.getElementById("link").href = link;
+
+}
+
+
+
+function ViewError (error) {
+	alert(error.code);
+}
+
 
 
 function Dist(lat1, lon1, lat2, lon2) {
