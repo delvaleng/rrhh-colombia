@@ -163,7 +163,7 @@ $("#search"  ).click(function() {
 
           if(aData.latitud != null && aData.longitud != null){
           var distancia = Dist(lat1, lon1, aData.latitud, aData.longitud);
-            if(distancia > 1){
+            if(distancia > 3){
               $('td', nRow).css('background-color', '#EA8080');
             }
           }

@@ -77,7 +77,7 @@ class MarcacionController extends AppBaseController
       $endDate    = ($formulario{'endDate'}  )?  $formulario{'endDate'}   : null;   unset( $formulario{'endDate'});
 
       if($startDate != null && $endDate != null)       {
-        $marcacions = $marcacions->whereBetween('created_at',  [date("Y-m-d", strtotime($startDate) ), date("Y-m-d", strtotime($endDate  ) ) ] ); }
+        $marcacions = $marcacions->whereBetween('dia',  [date("Y-m-d", strtotime($startDate) ), date("Y-m-d", strtotime($endDate  ) ) ] ); }
 
       if ($formulario{'id_empleado'}) {
         $marcacions  = $marcacions->where('id_empleado', $formulario{'id_empleado'});
